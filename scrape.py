@@ -6,6 +6,7 @@ except ImportError:
     # Fall back to Python 2's urllib2
     from urllib2 import urlopen
 from bs4 import BeautifulSoup
+import csv
 
 
 finn = "https://m.finn.no/job/fulltime/search.html?industry=65&industry=8&location=1.20001.20012&filters="
@@ -25,5 +26,7 @@ for div in divs:
         for title in link.find_all('p', class_='word-break'):
             results.append(title.get_text())
     jobs.append(results)
-
 print(jobs)
+outfile = open("./jobbs.csv", "w")
+writer = csv.writer(outfile)
+writer.writerows(jobs)
